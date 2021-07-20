@@ -1,0 +1,83 @@
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a routerLink="/budget-de">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/8/83/Flag_of_the_United_Kingdom_%283-5%29.svg"
+      width="50px;"
+      height="50px;"
+      style="margin-top: -15px;"
+    />
+  </a>
+  <a routerLink="/NotePad-en">NotePad</a>
+  <a href="#contact">Contact</a>
+  <a href="#about">About</a>
+</div>
+
+<div class="header">
+  BUDGET CALCULATOR
+</div>
+
+<div class="total">
+  <h1 id="myH2" style="color: {{color}}">{{total}} $</h1>
+</div>
+
+<div class="input">
+  <form (submit)="MoneyAmount.value=' ' && DescriptionReference.value=' '">
+    <input
+      #MoneyAmount
+      type="number"
+      [(ngModel)]="amount"
+      (keyup.enter)="MoneyAmount.value=' '"
+      id="amountCSS"
+      placeholder="Amount"
+      name="total"
+    />
+    <input
+      #DescriptionReference
+      type="text"
+      [(ngModel)]="description"
+      (keyup.enter)="DescriptionReference.value=' '"
+      id="descriptionCSS"
+      placeholder="Description"
+      name="description"
+    />
+    <button
+      type="submit"
+      (click)="AddMoney(MoneyAmount.value, DescriptionReference.value)"
+      id="buttonadd"
+    >
+      Add
+    </button>
+    <button (click)="ClearAll()">
+      Clear All
+    </button>
+  </form>
+</div>
+<fieldset class="fl-in-ex">
+  <div class="income-expenses">
+    <div class="incomeHeader">
+      <h1>
+        {{countPlus}} Incomes<br />
+        +{{countMoneyPlus}} $
+      </h1>
+      <div class="incomebody">
+        <span id="incomeDescription" *ngFor="let Budget of BudgetIOPlus">
+          {{Budget.description}}
+          <span id="incomeMoney"><b>{{Budget.amount}} $</b> <br /><br /> </span>
+        </span>
+      </div>
+    </div>
+    <div class="expensesHeader">
+      <h1>
+        {{countMinus}} Expenses<br />
+        {{countMoneyMinus}} $
+      </h1>
+      <div class="expensebody" onclick="">
+        <span id="expensesDescription" *ngFor="let Budget of BudgetIOMinus">
+          {{Budget.description}}
+          <span id="expensesMoney"><b>{{Budget.amount}} $</b><br /><br /></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</fieldset>

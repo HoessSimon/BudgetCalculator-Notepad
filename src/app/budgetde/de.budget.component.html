@@ -1,0 +1,97 @@
+<div class="topnav">
+  <a class="active" href="#home">Home</a>
+  <a routerLink="/budget-en">
+    <img
+      src="https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/1200px-Flag_of_Germany.svg.png"
+      width="50px;"
+      height="35px;"
+      style="margin-top: -8px;"
+    />
+  </a>
+  <a routerLink="/NotePad-de">NotePad</a>
+  <a href="#contact">Kontakt</a>
+  <a href="#about">Über mich</a>
+</div>
+
+<div class="header">
+  BUDGET RECHNER
+</div>
+
+<div class="total">
+  <h1 id="myH2" style="color: {{color}}">{{total}} €</h1>
+</div>
+
+<div class="input">
+  <form (submit)="MoneyAmount.value='' && DescriptionReference.value=''">
+    <input
+      #MoneyAmount
+      type="number"
+      [(ngModel)]="amount"
+      (keyup.enter)="MoneyAmount.value=' '"
+      id="amountCSS"
+      placeholder="Betrag"
+      name="total"
+    />
+    <input
+      #DescriptionReference
+      type="text"
+      [(ngModel)]="description"
+      (keyup.enter)="DescriptionReference.value=' '"
+      class="descriptionCSS"
+      placeholder="Beschreibung"
+      name="description"
+    />
+    <button
+      type="submit"
+      (click)="AddMoney(MoneyAmount.value, DescriptionReference.value)"
+      id="buttonadd"
+    >
+      Hinzufuegen
+    </button>
+    <button (click)="ClearAll()">
+      Alles Löschen
+    </button>
+  </form>
+  <div class="edit" *ngIf="isShown">
+    <input id="amountCSS" type="number" value="">
+    <input class="descriptionCSS" type="text">
+    <button id="buttonadd">Editieren</button>
+    <button>Abbrechen</button>
+  </div>
+</div>
+
+
+
+
+
+<fieldset class="fl-in-ex">
+  <div class="income-expenses">
+    <div class="incomeHeader">
+      <h1>
+        {{countPlus}} Einkommen<br />
+        +{{countMoneyPlus}} €
+      </h1>
+      <div class="incomebody">
+        <span
+          id="incomeDescription"
+          *ngFor="let Budget of BudgetIOPlus,let index"
+        >
+          {{Budget.description}}
+          <span id="incomeMoney"><b>{{Budget.amount}} €</b> <br /><br /> </span>
+        </span>
+      </div>
+    </div>
+    <div class="expensesHeader">
+      <h1>
+        {{countMinus}} Ausgaben<br />
+        {{countMoneyMinus}} €
+      </h1>
+      <div class="expensebody" onclick="">
+        <span id="expensesDescription" *ngFor="let Budget of BudgetIOMinus">
+          {{Budget.description}}
+          <span id="expensesMoney"><b>{{Budget.amount}} €</b><br /><br /></span>
+        </span>
+      </div>
+    </div>
+  </div>
+</fieldset>
